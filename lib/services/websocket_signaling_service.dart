@@ -31,8 +31,13 @@ class WebSocketSignalingService {
         throw Exception('Server URL cannot be empty');
       }
 
-      // Ensure URL has a scheme (ws:// or wss://)
-      if (!normalizedUrl.startsWith('ws://') && !normalizedUrl.startsWith('wss://')) {
+      // Convert HTTP/HTTPS schemes to WS/WSS
+      if (normalizedUrl.startsWith('https://')) {
+        normalizedUrl = normalizedUrl.replaceFirst('https://', 'wss://');
+      } else if (normalizedUrl.startsWith('http://')) {
+        normalizedUrl = normalizedUrl.replaceFirst('http://', 'ws://');
+      } else if (!normalizedUrl.startsWith('ws://') && !normalizedUrl.startsWith('wss://')) {
+        // No scheme provided, default to ws://
         normalizedUrl = 'ws://$normalizedUrl';
       }
 
@@ -97,15 +102,19 @@ class WebSocketSignalingService {
     }
 
     try {
-      final json = jsonEncode({
+      final payload = <String, dynamic>{
         'type': message.type,
-        'from': message.from ?? _username,
-        'to': message.to,
-        'callId': message.callId,
-        'data': message.data,
-        'online': message.online,
-        'user': message.user,
-      });
+      };
+
+      final from = message.from ?? _username;
+      if (from != null) payload['from'] = from;
+      if (message.to != null) payload['to'] = message.to;
+      if (message.callId != null) payload['call_id'] = message.callId;
+      if (message.data != null) payload['data'] = message.data;
+      if (message.online != null) payload['online'] = message.online;
+      if (message.user != null) payload['user'] = message.user;
+
+      final json = jsonEncode(payload);
 
       _channel!.sink.add(json);
 
