@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "148890978662",
+    "project_id": "pi-phone-5ac3b",
+    "storage_bucket": "pi-phone-5ac3b.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:148890978662:android:6f4d51df83265669f5e0a7",
+        "android_client_info": {
+          "package_name": "com.example.intercom"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAsjq4MhGduNJge3VaZJoW1t1V6MZgpHCs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:148890978662:android:c663ea4f9cb2438ff5e0a7",
+        "android_client_info": {
+          "package_name": "com.example.pi_phone"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAsjq4MhGduNJge3VaZJoW1t1V6MZgpHCs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

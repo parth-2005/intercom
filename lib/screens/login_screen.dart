@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../providers/signaling_provider.dart';
+import '../services/fcm_service.dart';
 
 class LoginScreen extends ConsumerStatefulWidget {
   const LoginScreen({super.key});
@@ -28,12 +29,15 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
       return;
     }
 
+    final fcmToken = await FCMService.instance.getToken();
+
     setState(() => _isConnecting = true);
 
     try {
       await ref.read(connectionStateProvider.notifier).connect(
             username,
             _serverUrlController.text.trim(),
+            fcmToken: fcmToken,
           );
       
       if (mounted) {

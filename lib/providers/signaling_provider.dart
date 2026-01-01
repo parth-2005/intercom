@@ -1,9 +1,9 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../models/signaling_message.dart';
-import '../services/mock_signaling_service.dart';
+import '../services/websocket_signaling_service.dart';
 
-final signalingServiceProvider = Provider<MockSignalingService>((ref) {
-  final service = MockSignalingService();
+final signalingServiceProvider = Provider<WebSocketSignalingService>((ref) {
+  final service = WebSocketSignalingService();
   ref.onDispose(() => service.dispose());
   return service;
 });
@@ -46,11 +46,11 @@ class ConnectionStateNotifier extends StateNotifier<ConnectionState> {
 
   final Ref ref;
 
-  Future<void> connect(String username, String serverUrl) async {
+  Future<void> connect(String username, String serverUrl, {String? fcmToken}) async {
     final service = ref.read(signalingServiceProvider);
     
     try {
-      await service.connect(username, serverUrl);
+      await service.connect(username, serverUrl, fcmToken: fcmToken);
       state = ConnectionState(
         isConnected: true,
         username: username,

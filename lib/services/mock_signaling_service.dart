@@ -15,10 +15,12 @@ class MockSignalingService {
   bool get isConnected => _isConnected;
   String? get username => _username;
 
-  Future<void> connect(String username, String serverUrl) async {
+  Future<void> connect(String username, String serverUrl, {String? fcmToken}) async {
     // Simulate connection delay
     await Future.delayed(const Duration(milliseconds: 500));
     _username = username;
+    // Note: fcmToken is passed but not used in mock mode.
+    // In real WebSocket service, it would be appended to the connection URL.
     _isConnected = true;
     
     // Simulate other users being online

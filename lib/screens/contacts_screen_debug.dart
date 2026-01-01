@@ -107,17 +107,14 @@ class ContactsScreen extends ConsumerWidget {
                 );
               },
             ),
-      // Debug FAB to simulate incoming call
+      // Debug FAB
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          if (contacts.isNotEmpty && callState.status == CallStatus.idle) {
-            final service = ref.read(signalingServiceProvider);
-            // Simulate incoming call from first contact
-            service.simulateIncomingCall(contacts.first.username);
-          }
+          // Demo only - real calls come from backend
+          debugPrint('[ContactsScreen] Real backend manages incoming calls');
         },
         backgroundColor: Colors.orange,
-        tooltip: 'Simulate Incoming Call (Debug)',
+        tooltip: 'Signaling Active (Real Backend)',
         child: const Icon(Icons.phone_callback),
       ),
     );
